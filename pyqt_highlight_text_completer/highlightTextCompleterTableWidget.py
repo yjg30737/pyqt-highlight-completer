@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QTableWidget, QApplication, QHeaderView, QT
     QVBoxLayout, QLineEdit, QListWidget
 
 
-class HighlightTextCompleter(QTableWidget):
+class HighlightTextCompleterTableWidget(QTableWidget):
     showText = pyqtSignal(str)
 
     def __init__(self):
@@ -70,7 +70,7 @@ class HighlightTextCompleter(QTableWidget):
             self.showText.emit(widget.toPlainText())
 
 
-class HighLightTextCompleterLineEdit(QLineEdit):
+class HighlightTextCompleterLineEdit(QLineEdit):
     def __init__(self):
         super().__init__()
         self.__initUi()
@@ -80,9 +80,8 @@ class HighLightTextCompleterLineEdit(QLineEdit):
         self.textChanged.connect(self.__textChanged)
 
     def __initHightlightTextCompleter(self):
-        self.__completer = HighlightTextCompleter()
+        self.__completer = HighlightTextCompleterTableWidget()
         self.__completer.showText.connect(self.setText)
-        self.__completer.addTexts('Alberic Litte,Angalmo,Antus Odiil,Ariela Doran,Arriana Valga,Athragar,Bittneld the Curse-Bringer,Carmen Litte,Casta Scribonia,Chanel,Chorrol Jailor,Chorrol Soldier,City Watch,Dar-Ma,Earana,Emfrid,Estelle Renoit,Eugal Belette,Fighters Guild Porter,Francois Motierre,Gaturn gro-Gonk,Glistel,Gureryne Selvilo,Honditar,Jirolin Doran,Kurz gro-Baroth,Laythe Wavrick,Lazy Kaslowyn,Lum gro-Baroth,Malintus Ancrus,Modryn Oreyn,Nardhil,Nermus the Mooch,Orag gra-Bargol,Orgnolf Hairy-Legs,Orok gro-Ghoth,Otius Loran,Rallus Odiil,Rasheda,Rena Bruiant,Reynald Jemane,Rimalus Bruiant,Seed-Neeus,Talasma,Teekeeus,Valus Odiil,Vilena Donton,Wallace'.split(','))
 
     def __textChanged(self, text):
         f = self.__completer.searchTexts(text)
@@ -104,14 +103,17 @@ class HighLightTextCompleterLineEdit(QLineEdit):
     def closeCompleter(self):
         self.__completer.hide()
 
+    def addTexts(self, texts):
+        self.__completer.addTexts(texts)
 
-class MainWindow(QWidget):
+
+class HighlightTextCompleter(QWidget):
     def __init__(self):
         super().__init__()
         self.__initUi()
 
     def __initUi(self):
-        self.__lineEdit = HighLightTextCompleterLineEdit()
+        self.__lineEdit = HighlightTextCompleterLineEdit()
 
         resultListWidget = QListWidget()
 
@@ -128,6 +130,9 @@ class MainWindow(QWidget):
 
         self.setLayout(lay)
 
+    def addTexts(self, texts: list):
+        self.__lineEdit.addTexts(texts)
+
     def moveEvent(self, e):
         self.__lineEdit.closeCompleter()
         return super().moveEvent(e)
@@ -136,12 +141,3 @@ class MainWindow(QWidget):
         if e.type() == 99:
             self.__lineEdit.closeCompleter()
         return super().changeEvent(e)
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    app.exec_()
