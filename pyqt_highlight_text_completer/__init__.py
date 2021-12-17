@@ -1,1 +1,1 @@
-from .highlightTextCompleterTableWidget import *
+from .highlightTextCompleter import *
