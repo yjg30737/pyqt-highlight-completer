@@ -8,9 +8,12 @@ PyQt highlight text completer
 ``` pip3 install git+https://github.com/yjg30737/pyqt-highlight-text-completer.git --upgrade```
 
 ## Note
-This package mainly consists of QLineEdit and QTableWidget. QCompleter is not even used.
+This package is not good to use. I made this because i want to add highlight feature to completer. 
+At least highlight feature works.
+QCompleter is not even used. This package mainly consist of QLineEdit and QTableWidget.
 
 ## Example
+As always, I'm not good at explaining something (Moreover i'm not even native English speaker) so i will give you this.
 ```python
 from PyQt5.QtWidgets import QApplication
 from pyqt_highlight_text_completer import HighlightTextCompleter

@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QTableWidget, QApplication, QHeaderView, QT
     QVBoxLayout, QLineEdit, QListWidget
 
 
-class HighlightTextCompleterTableWidget(QTableWidget):
+class HighlightCompleterTableWidget(QTableWidget):
     showText = pyqtSignal(str)
 
     def __init__(self):
@@ -70,7 +70,7 @@ class HighlightTextCompleterTableWidget(QTableWidget):
             self.showText.emit(widget.toPlainText())
 
 
-class HighlightTextCompleterLineEdit(QLineEdit):
+class HighlightCompleterLineEdit(QLineEdit):
     def __init__(self):
         super().__init__()
         self.__initUi()
@@ -80,7 +80,7 @@ class HighlightTextCompleterLineEdit(QLineEdit):
         self.textChanged.connect(self.__textChanged)
 
     def __initHightlightTextCompleter(self):
-        self.__completer = HighlightTextCompleterTableWidget()
+        self.__completer = HighlightCompleterTableWidget()
         self.__completer.showText.connect(self.setText)
 
     def __textChanged(self, text):
@@ -107,13 +107,13 @@ class HighlightTextCompleterLineEdit(QLineEdit):
         self.__completer.addTexts(texts)
 
 
-class HighlightTextCompleter(QWidget):
+class HighlightCompleter(QWidget):
     def __init__(self):
         super().__init__()
         self.__initUi()
 
     def __initUi(self):
-        self.__lineEdit = HighlightTextCompleterLineEdit()
+        self.__lineEdit = HighlightCompleterLineEdit()
 
         resultListWidget = QListWidget()
 
