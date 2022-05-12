@@ -5,7 +5,7 @@ PyQt highlight completer
 *  PyQt5 >= 5.8
 
 ## Setup
-``` pip3 install git+https://github.com/yjg30737/pyqt-highlight-completer.git --upgrade```
+`python -m pip install pyqt-highlight-completer`
 
 ## Note
 This package mainly consist of QLineEdit and QTableWidget. QCompleter is not even used.
