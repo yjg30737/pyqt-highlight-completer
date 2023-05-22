@@ -1,7 +1,6 @@
 from PyQt5.QtCore import Qt, pyqtSignal, QPoint
 from PyQt5.QtGui import QTextCharFormat, QTextCursor
-from PyQt5.QtWidgets import QWidget, QTableWidget, QApplication, QHeaderView, QTextBrowser, QMainWindow, \
-    QVBoxLayout, QLineEdit, QListWidget
+from PyQt5.QtWidgets import QWidget, QTableWidget, QHeaderView, QTextBrowser, QVBoxLayout, QLineEdit, QListWidget
 
 
 class HighlightCompleterTableWidget(QTableWidget):
@@ -28,11 +27,14 @@ class HighlightCompleterTableWidget(QTableWidget):
             if widget:
                 widget_text = widget.toPlainText()
                 if text.strip() != '':
-                    if widget_text.startswith(text):
+                    idx = widget_text.lower().find(text.lower())
+                    if idx != -1:
+                        start_idx = idx
+                        end_idx = idx + len(text)
                         matched_texts_lst.append(text)
                         cursor = QTextCursor(widget.document())
-                        self.__hightlightText(cursor, Qt.red, 0, len(text))
-                        self.__hightlightText(cursor, Qt.black, len(text), len(widget_text))
+                        self.__hightlightText(cursor, Qt.red, start_idx, end_idx)
+                        # self.__hightlightText(cursor, Qt.black, len(text), len(widget_text))
                         self.showRow(i)
                     else:
                         self.hideRow(i)
