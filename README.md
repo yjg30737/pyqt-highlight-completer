@@ -10,6 +10,8 @@ PyQt highlight completer
 ## Note
 This package mainly consist of QLineEdit and QTableWidget. QCompleter is not even used.
 
+This is case-insensitive, searching for text anywhere. 
+
 ## Example
 Code Sample
 ```python
